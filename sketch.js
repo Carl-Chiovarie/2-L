@@ -253,10 +253,9 @@ function setArrayDomColor(){
 
 function hotFix(){ // TO DO separate setArrayDomColor from color generation
   newDomColor = [
-    // analogous or one of the triads
-    mRandom(minColor,maxColor), 
-    mRandom(minColor,maxColor), 
-    mRandom(minColor,maxColor)
+    mRandom(100,255), 
+    mRandom(100,255), 
+    mRandom(100,255)
 
   ]
   
