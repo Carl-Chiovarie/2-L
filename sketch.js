@@ -317,8 +317,10 @@ function keyPressed() {
   }
 }
 function touchStarted() {
-  setArrayDomColor();
-  frameCount = 0
+  if (frameCount > 20){
+    setArrayDomColor();
+    frameCount = 0
+  }
 }
 
 let frameCount = 0;
