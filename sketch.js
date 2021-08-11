@@ -273,7 +273,7 @@ function setup() {
       pixelDimensionScaler = [1,100];
       strokeWeight(1);
     } else {
-      pixelDimensionScaler = [100,1];
+      pixelDimensionScaler = [1,100];
       strokeWeight(0.50);
     }
   }// pDScaler[0] = x  then pD[0] = cD / pDScaler
