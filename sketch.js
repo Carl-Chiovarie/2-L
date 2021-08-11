@@ -207,7 +207,7 @@ class PixelBlock{
   } //constructor
 }
 
-let brightnessMin = 100
+let brightnessMin = 100 
 function setArrayDomColor(){
   function checkBrightness(input){
     let brightness = (0.21 * input[0]) + (0.72 * input[1]) + (0.07 * input[2]);
@@ -218,6 +218,7 @@ function setArrayDomColor(){
         mRandom(0,255)
       ]);
     } else {
+      console.log("brightness", brightness);
       return input;
     }
   }
@@ -281,11 +282,12 @@ function setup() {
 
   if (confirm("Custom inputs? Cancel for recommended")){
      pixelDimensionScaler = [
-      prompt("Pixel Width scale"),
-      prompt("Pixel Height scale")
+      prompt("Pixel Width scale, default 1"),
+      prompt("Pixel Height scale, default 100")
      ];
     startingColor = color(prompt("Hex color code"));
-    colorVariance = prompt("Color variance max")
+    colorVariance = prompt("Color variance max, default 35")
+    brightnessMin = prompt("Brightness min color value 0-255")
   } else {
     startingColor = color(hotFix());
     colorVariance = 35; // ---=={########################################}==---
