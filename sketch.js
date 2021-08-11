@@ -59,7 +59,7 @@ function makeGray (input) {
   return colorGrayed;
 }
 
-
+let overLapRange = [3,10]
 class PixelBlock{
   constructor (pixelDimensionScaler, position, colorVariance, dominantColor){
     this.pixelDimensionScaler = pixelDimensionScaler;
@@ -67,7 +67,7 @@ class PixelBlock{
     this.colorVarianceMax = colorVariance;
     // console.log("this startingColor: ", startingColor.levels);
 
-    this.overLap = 3
+    this.overLap = 4;
     this.dimensions = [
       windowWidth / this.pixelDimensionScaler[0],
       windowHeight / this.pixelDimensionScaler[1]
@@ -199,7 +199,7 @@ class PixelBlock{
       rect(
         this.position[0] * this.dimensions[0],
         this.position[1] * this.dimensions[1], 
-        this.dimensions[0] * this.overLap, 
+        this.dimensions[0] * this.overLap, // this is dumb fix later
         this.dimensions[1] * this.overLap
       );
       // console.log("show")
@@ -209,37 +209,17 @@ class PixelBlock{
 
 let brightnessMin = 100 
 function setArrayDomColor(){
-  function checkBrightness(input){
-    let brightness = (0.21 * input[0]) + (0.72 * input[1]) + (0.07 * input[2]);
-    if (brightness < brightnessMin){
-      return checkBrightness([
-        mRandom(0,255), 
-        mRandom(0,255), 
-        mRandom(0,255)
-      ]);
-    } else {
-      console.log("brightness", brightness);
-      return input;
-    }
-  }
+  newDomColor = [
+    mRandom(0, 360), //  HUE  don't change this
+    mRandom(50, 90), //  Saturation
+    mRandom(90, 95), //  Brightness
+  ];
 
-  newDomColor = checkBrightness([
-    mRandom(0,255), 
-    mRandom(0,255), 
-    mRandom(0,255)
-  ]);
-  
-  //checking for grey colors
-  valAvg = newDomColor.reduce((a, b) => a + b, 0) / 3
-  saturationBuffer = 00; // Does not work as intended
-  for (let colorVal of newDomColor){
-    if (Math.abs(valAvg - colorVal) <= saturationBuffer){
-      setArrayDomColor(); //color has too low contrast try again
-      return;
-    }
-  }
+  colorMode(HSB);
+  newDomColor = color(newDomColor);
+  colorMode(RGB); //most of the old code uses RGB so I don't want to mess with anything
 
-  let overLap = mRandom(1,8);
+  let overLap = mRandom(overLapRange[0], overLapRange[1]);
   console.log("overLap", overLap);
 
   // sends new dom color to all blocks
@@ -254,21 +234,14 @@ function setArrayDomColor(){
 
 function hotFix(){ // TO DO separate setArrayDomColor from color generation
   newDomColor = [
-    // analogous or one of the triads
-    mRandom(100,255), 
-    mRandom(100,255), 
-    mRandom(100,255)
-  ]
+    mRandom(0, 360), //  HUE  don't change this
+    mRandom(50, 90), //  Saturation
+    mRandom(65, 95), //  Brightness
+  ];
   
-    //checking for grey colors
-  valAvg = newDomColor.reduce((a, b) => a + b, 0) / 3
-  saturationBuffer = 00; // Does not work as intended
-  for (let colorVal of newDomColor){
-    if (Math.abs(valAvg - colorVal) <= saturationBuffer){
-      setArrayDomColor(); //color has too low contrast try again
-      break;
-    }
-  }
+  colorMode(HSB);
+  newDomColor = color(newDomColor);
+  colorMode(RGB);
   return newDomColor;
 }
 
@@ -286,11 +259,15 @@ function setup() {
       prompt("Pixel Height scale, default 100")
      ];
     startingColor = color(prompt("Hex color code"));
-    colorVariance = prompt("Color variance max, default 35")
     brightnessMin = prompt("Brightness min color value 0-255")
+    overLapRange = [
+      prompt("Smoothness range min, default 3"),
+      prompt("Smoothness range max, default 10")
+     ];
+    colorVariance = prompt("Color variance max, default 90")
   } else {
     startingColor = color(hotFix());
-    colorVariance = 35; // ---=={########################################}==---
+    colorVariance = 90; // ---=={########################################}==---
 
     if (windowWidth > windowHeight){
       pixelDimensionScaler = [1,100];
@@ -305,9 +282,8 @@ function setup() {
   // strokeWeight(0.75);
   // stroke(makeGray(startingColor));
 
-  background(makeGray(startingColor));
-  // strokeWeight(0.75);
-  stroke(makeGray(startingColor));
+  background(startingColor);
+  stroke(startingColor);
 
   console.log("pixelDimensionScaler: ", pixelDimensionScaler)
   console.log(
