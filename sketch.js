@@ -59,7 +59,7 @@ function makeGray (input) {
   return colorGrayed;
 }
 
-let overLapRange = [3,10]
+let overLapRange = [3,8]
 class PixelBlock{
   constructor (pixelDimensionScaler, position, colorVariance, dominantColor){
     this.pixelDimensionScaler = pixelDimensionScaler;
