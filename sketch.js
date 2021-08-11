@@ -274,7 +274,7 @@ function setup() {
       strokeWeight(1);
     } else {
       pixelDimensionScaler = [1,100];
-      strokeWeight(0.50);
+      strokeWeight(1);
     }
   }// pDScaler[0] = x  then pD[0] = cD / pDScaler
   console.log("global startingColor: ", startingColor.levels);
