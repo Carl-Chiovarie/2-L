@@ -211,8 +211,8 @@ let brightnessMin = 100
 function setArrayDomColor(){
   newDomColor = [
     mRandom(0, 360), //  HUE  don't change this
-    mRandom(50, 90), //  Saturation
-    mRandom(90, 95), //  Brightness
+    mRandom(40, 90), //  Saturation
+    mRandom(90, 100), //  Brightness
   ];
 
   colorMode(HSB);
@@ -235,8 +235,8 @@ function setArrayDomColor(){
 function hotFix(){ // TO DO separate setArrayDomColor from color generation
   newDomColor = [
     mRandom(0, 360), //  HUE  don't change this
-    mRandom(50, 90), //  Saturation
-    mRandom(65, 95), //  Brightness
+    mRandom(40, 90), //  Saturation
+    mRandom(90, 100), //  Brightness
   ];
   
   colorMode(HSB);
