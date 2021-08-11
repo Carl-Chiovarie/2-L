@@ -160,13 +160,13 @@ class PixelBlock{
 
       //Checks if color has surpassed limits if so reset color goal
       for (let i = 0; i < this.color.length; i++){
-        if (this.color[i] > maxColor){ // color has passed limit
+        if (this.color[i] > 255){ // color has passed limit
           // console.log("Color passed 255")
-          this.color[i] = maxColor - 1
+          this.color[i] = 255 - 1
           this.resetGoal();
-        } else if (this.color[i] < minColor){ // color has passed limit
+        } else if (this.color[i] < 0){ // color has passed limit
           // console.log("Color passed 100")
-          this.color[i] = minColor + 1
+          this.color[i] = 0 + 1
           this.resetGoal();
         }
       } // color update for loop
@@ -193,7 +193,7 @@ class PixelBlock{
       // let overLap = 10 // at some points unnoticeable
       
       //this.overLap = "foo" // to set fixed overlap
-      fill([...this.color, 255/this.overLap]); 
+      fill([...this.color, 255/(this.overLap/2)]); 
       stroke(this.domColor);
       // console.log("this.color: ", this.color)
       rect(
@@ -238,7 +238,7 @@ function setArrayDomColor(){
     }
   }
 
-  let overLap = mRandom(0,10);
+  let overLap = mRandom(1,4);
   console.log("overLap", overLap);
 
   // sends new dom color to all blocks
@@ -253,10 +253,10 @@ function setArrayDomColor(){
 
 function hotFix(){ // TO DO separate setArrayDomColor from color generation
   newDomColor = [
+    // analogous or one of the triads
     mRandom(100,255), 
     mRandom(100,255), 
     mRandom(100,255)
-
   ]
   
     //checking for grey colors
@@ -344,7 +344,7 @@ function touchStarted() {
 }
 
 let frameCount = 0;
-let secondsGoal = 10;
+let secondsGoal = 15;
 
 function draw() {
   frameRate(30);
@@ -354,7 +354,7 @@ function draw() {
     console.log("Frame count", frameCount);
     console.log("Sec count", frameCount / 30);
     frameCount = 0;
-    secondsGoal = mRandom(5,15);//(2,7) // (5,15)
+    secondsGoal = mRandom(10,15);//(2,7) // (5,15)
     setArrayDomColor();
   }
   // if (1 == mRandom(1, 20 * 30)){ // have it so that a new dom cannot be selected until
