@@ -199,7 +199,7 @@ class PixelBlock{
       rect(
         this.position[0] * this.dimensions[0],
         this.position[1] * this.dimensions[1], 
-        this.dimensions[0], 
+        this.dimensions[0] * this.overLap, 
         this.dimensions[1] * this.overLap
       );
       // console.log("show")
@@ -239,7 +239,7 @@ function setArrayDomColor(){
     }
   }
 
-  let overLap = mRandom(1,4);
+  let overLap = mRandom(1,8);
   console.log("overLap", overLap);
 
   // sends new dom color to all blocks
