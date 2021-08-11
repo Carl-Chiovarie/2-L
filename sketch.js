@@ -247,8 +247,8 @@ function hotFix(){ // TO DO separate setArrayDomColor from color generation
 
 let pixelBlocksArray = [];
 function setup() {
-  createCanvas(1080, 1080);
-  // createCanvas(windowWidth, windowHeight);
+//  createCanvas(1080, 1080);
+  createCanvas(windowWidth, windowHeight);
   background(color("#F7C59F"));
 
   let pixelDimensionScaler = [];
