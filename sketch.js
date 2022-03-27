@@ -335,7 +335,7 @@ function draw() {
     console.log("Frame count", frameCount);
     console.log("Sec count", frameCount / 30);
     frameCount = 0;
-    secondsGoal = mRandom(2,4);//(10,15) // (5,15)
+    secondsGoal = mRandom(3,7);//(10,15) // (5,15)
     setArrayDomColor();
   }
   // if (1 == mRandom(1, 20 * 30)){ // have it so that a new dom cannot be selected until
